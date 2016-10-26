@@ -1,38 +1,43 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
-bool checkInputIntegrity(int);
 int checkOdd();
+void createSquare(int **);
+void writeToFile(int **);
 
 int main() {
-	int yash;
+	while (true) {
+		int magicalNumber = checkOdd();
+		int **magicalArray = new int*[magicalNumber];
 
-	hai:
-	cout << "Hey put in a number that happens to be odd kthx" << endl;
-	cin >> yash;
+		for (int i = 0; i < magicalNumber; i++) {
+			magicalArray[i] = new int[magicalNumber];
+		}
 
-	if (checkInputIntegrity(yash)) {
-		cout << "Good job!" << endl;
+		if (magicalNumber == 0) {
+			break;
+		}
 	}
-	else {
-		goto hai;
-	}
-}
-
-bool checkInputIntegrity(int foo) {
-	return foo % 2;
 }
 
 int checkOdd() {
 	while (true) {
 		int foo;
 
-		cout << "Please input a number retard" << endl;
+		cout << "Please input an odd number greater than 0" << endl;
 		cin >> foo;
 
-		if (foo % 2) {
+		if (foo < 0) {
+			continue;
+		} 
+		else if (foo % 2 || foo == 0) {
 			return foo;
 		}
 	}
+}
+
+void createSquare(int **arr) {
+
 }
