@@ -1,3 +1,5 @@
+//James Robertson
+//jpr160030
 #include <iostream>
 #include <fstream>
 
@@ -5,11 +7,18 @@ using namespace std;
 
 int checkOdd();
 void createSquare(int **, int);
-void writeToFile(int **, int);
-
-
+void writeToFile(int **, int, ofstream &);
 
 int main() {
+	ofstream outFile;
+
+	outFile.open("output.txt");
+
+	if (outFile.bad()) {
+		cout << "File stream error" << endl;
+		return 117;
+	}
+
 	while (true) {
 		int magicalNumber = checkOdd();
 		int **magicalArray = new int*[magicalNumber];
@@ -24,12 +33,7 @@ int main() {
 
 		createSquare(magicalArray, magicalNumber);
 
-		for (int i = 0; i < magicalNumber; i++) {
-			for (int x = 0; x < magicalNumber; x++) {
-				cout << magicalArray[i][x] << " ";
-			}
-			cout << endl;
-		}
+		writeToFile(magicalArray, magicalNumber, outFile);
 	}
 }
 
@@ -42,7 +46,7 @@ int checkOdd() {
 
 		if (foo < 0) {
 			continue;
-		} 
+		}
 		else if (foo % 2 || foo == 0) {
 			return foo;
 		}
@@ -60,7 +64,7 @@ void createSquare(int **arr, int arrLength) {
 			arr[i][x] = -1;
 		}
 	}
-	
+
 	for (int i = 1; i <= arrLength * arrLength; i++) {
 		int newX = x + 1;
 		int newY = y + 1;
@@ -73,14 +77,27 @@ void createSquare(int **arr, int arrLength) {
 		}
 		if (arr[newX][newY] == -1) {
 			arr[newX][newY] = i;
-
-			continue;
 		}
+		else {
+			newY = y - 1;
 
-		newY = y - 1;
-		arr[x][newY] = i;
+			if (newY < 0) {
+				newY = arrLength - 1;
+			}
+
+			arr[newX][newY] = i;
+		}
 
 		x = newX;
 		y = newY;
+	}
+}
+
+void writeToFile(int **arr, int arrLength, ofstream &outFile) {
+	for (int i = 0; i < arrLength; i++) {
+		for (int x = 0; x < arrLength; x++) {
+			outFile << arr[i][x] << " ";
+		}
+		outFile << endl;
 	}
 }
