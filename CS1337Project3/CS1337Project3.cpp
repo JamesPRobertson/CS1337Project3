@@ -1,5 +1,8 @@
 //James Robertson
+<<<<<<< HEAD
 //jpr160030
+=======
+>>>>>>> b8ecfe3349f8d12f33392dfa5d021097074e31d8
 #include <iostream>
 #include <fstream>
 
