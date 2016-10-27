@@ -73,12 +73,16 @@ void createSquare(int **arr, int arrLength) {
 		}
 		if (arr[newX][newY] == -1) {
 			arr[newX][newY] = i;
-
-			continue;
 		}
+		else {
+			newY = y - 1;
 
-		newY = y - 1;
-		arr[x][newY] = i;
+			if (newY < 0) {
+				newY = arrLength - 1;
+			}
+
+			arr[newX][newY] = i;
+		}
 
 		x = newX;
 		y = newY;
